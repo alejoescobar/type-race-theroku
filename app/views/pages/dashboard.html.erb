@@ -1,0 +1,73 @@
+<div class="container dashboard-section">
+
+ <div class="dashboard col-lg-8 scrollit">
+  <div class="row m-dt-2">
+    <div class="col-lg-10 col-lg-offset-2">
+     <!--  <h4>Play <i class="fa fa-fw fa-heart text-danger"></i></h4> -->
+     <ul class="list-inline">
+      <li><%= link_to "PLAY NOW!", races_path, class: "btn btn-default" %></li>
+      <li><%= link_to "VIEW LEADERBOARD", leaderboard_path, class: "btn btn-default" %></li>
+      <li><%= link_to "SEARCH A PLAYER", users_search_path, class: "btn btn-default" %></li>
+      </ul>
+    </div>
+
+
+  </div>
+  <hr>
+
+
+      <h2 class="text-center">Following Feed</h2>
+
+
+  <% @races.each do |race| %>
+  <% @followers.each do |follower| %>
+  <% if follower.id == race.user_id %>
+  <div class="row carousel-row">
+    <div class="col-xs-10 col-xs-offset-1 slide-row">
+      <div id="carousel-3" class="carousel slide slide-carousel">
+        <div class="carousel-inner">
+          <div class="item active">
+            <img src="<%= follower.avatar %>" alt="Image">
+          </div>
+        </div>
+      </div>
+      <div class="slide-content">
+        <h4><%= follower.name %></h4>
+        <p class="small">game played at:<strong><%= race.created_at.strftime("%b %e - %l:%M %p") %></strong></p>
+        <p>
+
+          My speed was of <span class="score"><%= race.wpm %> WPM</span>
+        </p>
+        <%= link_to "Profile" ,user_path(follower) %>
+      </div>
+
+    </div>
+  </div>
+  <% end %>
+  <% end %>
+  <% end %>
+</div>
+
+
+<div class="user-profile col-lg-4 fixed">
+  <div class="user-card">
+    <figure class="avatar">
+      <img src="<%= current_user.avatar %>" alt="" />
+    </figure>
+    <div class="content">
+      <p><%= current_user.name %><br></p>
+      <p>
+        <div class="btn-group" role="group">
+          <a class="btn btn-default">WPM: <%= current_average_wpm %></a>
+          <a class="btn btn-default">Accuracy: <%= current_average_accuracy %> </a>
+          <a class="btn btn-default">Races <%= current_user.races.count %></a>
+        </div>
+      </p>
+      <br>
+      <p>
+       <%= link_to "SEE MY PROFILE", user_path(current_user.id), class: "btn btn-default btn-sm" %>
+     </p>
+   </div>
+ </div>
+</div>
+</div>

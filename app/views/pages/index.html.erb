@@ -1,0 +1,51 @@
+
+
+<div class="hero-unit">
+  <div class="container">
+    <div class="row-fluid">
+      <div class="span12">
+        <h1>ChuckType</h1>
+        <p>Fun way to practice your typing skills while you read jokes of the almighty <strong>Chuck Norris.</strong> </p>
+        <% if user_signed_in? %>
+        <%= link_to "PLAY NOW!", races_path, class: "btn btn-default" %>
+        <% else %>
+        <p>
+        <%= link_to "Create user", new_user_registration_path, class: "btn btn-default" %>
+        <%= link_to "Login", new_user_session_path, :class => 'btn btn-default' , "data-target" => "#login", "data-toggle" => "modal" %>
+        <%= link_to "<i class='fa fa-facebook'></i> | Sign in with Facebook".html_safe , user_omniauth_authorize_path(:facebook), class: "btn  btn-social btn-facebook btn-primary" %>
+        </p>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="public-landing">
+
+  <div class="container">
+    <div class="block-grid-lg-5 block-grid-md-4 block-grid-sm-2 block-grid-xs-1">
+
+      <% @lastplays.each do | race | %>
+      <div class="block-grid-item">
+        <div class="user-card">
+          <figure class="avatar">
+            <img src="<%= race.user.avatar %>" alt="" />
+          </figure>
+          <div class="content">
+            <p><%= race.user.name %><br>
+             Score: <span><%= race.wpm %></span>
+             </p>
+             <p>
+             <%= link_to "See profile", user_path(race.user.id), class: "btn btn-default btn-sm" %>
+             </p>
+           </div>
+         </div>
+       </div>
+       <% end %>
+
+     </div>
+   </div>
+ </div>
+
+ <%= render 'login' %>

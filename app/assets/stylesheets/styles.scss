@@ -1,0 +1,97 @@
+.m-bottom-2{ margin-bottom: 2em }
+.m-dt-2 { margin: 2em 0;}
+.block-grid-item{ margin: 0 !important; padding: !important;}
+
+.hero-unit{
+  .btn-default{ background: none; color: white; border: 2px solid white;}
+}
+.navbar-brand{margin-top: 5px;}
+.dashboard-section{
+  .btn-default{
+   color: rgb(136, 172, 217);
+   border: 2px solid rgb(136, 172, 217);
+   background: none;
+ }
+ hr{ border-top: 1px solid rgba(255,255,255,0.2);}
+}
+.dashboard{
+
+  background: rgba(0,0,0,0.1);
+  border: none;
+  color: white;
+
+  .slide-row{
+    background: none;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 4px;
+  }
+  .slide-content{
+    max-height:none;
+    margin-top: 10px;
+    background: none;
+    h4{font-size: 32px; margin: 0; padding: 0;}
+    .score{font-size:15px; padding: 5px 10px; background: white; color: #4F86BC; border-radius: 6px;}
+    .small{color: white; text-transform: uppercase; font-size: 14px; padding: 3px 6px; border-radius: 4px;}
+  }
+  .well{
+    border: none;
+  }
+}
+
+.public-landing, .user-profile{
+  .gamer{
+    color: white;
+    &.well{
+      background: rgba(0,0,0,0.1);
+      border: none;
+    }
+    figure{
+      width: 75%;
+      margin: 0 auto;
+      img{ margin: 20px auto; }
+    }
+  }
+  .user-card {
+    margin: 0;
+    .btn-default{
+      color: rgb(136, 172, 217);
+      border: 2px solid rgb(136, 172, 217);
+      background: none;
+    }
+    border: none;
+    border-radius: 8px;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    background-color: #284c79;
+    color: rgb(136, 172, 217);
+    .avatar {
+
+      margin-top: 15px;
+      z-index: 100;
+      img {
+        width: 100px;
+        height: 100px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        border: 5px solid rgba(136, 172, 217, 0.5 );
+      }
+    }
+  }
+}
+
+.hero-unit {
+  padding: 60px;
+  margin-bottom: 30px;
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 30px;
+  color: white;
+  background-color: rgba(0,0,0,0.1);
+}
+
+
+
+
+

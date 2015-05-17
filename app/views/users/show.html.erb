@@ -1,0 +1,143 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+      <div class="well profile">
+        <div class="col-sm-12">
+          <div class="col-xs-12 col-sm-8">
+              <h2><%= @user.name %></h2>
+              <p><strong>Average WPM: </strong> <%= average_wpm %> </p>
+              <p><strong>Average accuracy: </strong> <%= average_accuracy %> </p>
+              <p><strong>Rank: </strong>
+                  <% if average_wpm < 40 %>
+                    Casual Chuck
+                  <% elsif average_wpm.between?(40, 80) %>
+                    Average Chuck
+                  <% else %>
+                    Norris Chuck
+                  <% end %>
+              </p>
+          </div>
+          <div class="col-xs-12 col-sm-4 text-center">
+              <figure>
+                  <img src="<%= @user.avatar %>"   class="img-circle img-responsive">
+                  <p>Rating</p>
+              </figure>
+          </div>
+        </div>
+        <div class="col-xs-12 divider text-center">
+            <div class="col-xs-12 col-sm-4 emphasis">
+                <h2><strong> <%= @user.followers.count %> </strong></h2>
+                <p><small>Followers</small></p>
+                <% if current_user == @user %>
+                  <button class="btn btn-success btn-block disabled"><span class="fa fa-plus-circle"></span> Follow </button>
+                <% elsif current_user.following?(@user) %>
+                  <%= link_to unfollow_user_path do %>
+                    <button class="btn btn-success btn-block" id="following"> Following </button>
+                  <% end %>
+                <% else %>
+                  <%= link_to follow_user_path do %>
+                    <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span> Follow </button>
+                  <% end %>
+                <% end %>
+            </div>
+            <div class="col-xs-12 col-sm-4 emphasis">
+                <h2><strong><%= @user.all_following.count %></strong></h2>
+                <p><small>Following</small></p>
+                <button class="btn btn-info btn-block"><span class="fa fa-user"></span> View Profile </button>
+            </div>
+            <div class="col-xs-12 col-sm-4 emphasis">
+                <h2><strong><%= @user.races.count %></strong></h2>
+                <p><small>Races</small></p>
+
+                <% if current_user == @user %>
+                <div class="btn-group dropup btn-block">
+                  <button type="button" class="btn btn-primary"><span class="fa fa-gear"></span> Options </button>
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                      <span class="caret"></span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+
+                    <ul class="dropdown-menu text-left" role="menu">
+                      <li><%= link_to "<span class='fa fa-warning pull-right'></span>Cancel my account".html_safe , registration_path(@user), data: { confirm: "Are you sure?" }, method: :delete %></li>
+                      <!-- <li><a href="#"><span class="fa fa-envelope pull-right"></span> Send an email </a></li>
+                      <li><a href="#"><span class="fa fa-list pull-right"></span> Add or remove from a list  </a></li> -->
+                      <!-- <li class="divider"></li> -->
+                      <!-- <li class="divider"></li>
+                      <li><a href="#" class="btn disabled" role="button"> Unfollow </a></li> -->
+                    </ul>
+
+                  </div>
+                  <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6 col-md-3 col-md-offset-3">
+      <div class="thumbnail">
+        <div class="caption">
+          <h3>Followers</h3>
+          <% if @user.followers.count == 0 %>
+            <p>You don't have any followers :(</p>
+          <% else %>
+            <ul>
+              <% @user.followers.each do |user| %>
+                <li><%= user.name %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <div class="thumbnail">
+        <div class="caption">
+          <h3>Following</h3>
+          <% if @user.all_following.count == 0 %>
+            <p>This user isn't following anyone!</p>
+          <% else %>
+            <ul>
+              <% @user.all_following.each do |user| %>
+                <li><%= user.name %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6 col-md-6 col-md-offset-3">
+      <div class="thumbnail">
+        <div class="caption">
+          <h3>Top 10 races</h3>
+          <% if @user.races.count == 0 %>
+            <p>You haven't raced yet :(</p>
+          <% else %>
+            <table class="table">
+              <tr>
+                <th>#</th>
+                <th>WPM</th>
+                <th>Accuracy</th>
+                <th>Date</th>
+              </tr>
+              <% @user.races.order(wpm: :desc)[0..10].each do |race| %>
+                <tr>
+                  <td><%= @counter += 1 %></td>
+                  <td><%= race.wpm %></td>
+                  <td><%= race.accuracy.round(2) %>%</td>
+                  <td><%= race.created_at.strftime("%d-%m-%Y") %></td>
+                </tr>
+              <% end %>
+            </table>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
